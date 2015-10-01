@@ -11,6 +11,8 @@
                 <th>Name</th>
                 <th>Description</th>
                 <th>Price</th>
+                <th>Featured</th>
+                <th>Recommend</th>
                 <th>Action</th>
             </tr>
             @foreach($products as $product)
@@ -19,6 +21,8 @@
                     <td>{{$product->name}}</td>
                     <td>{{$product->description}}</td>
                     <td>{{$product->price}}</td>
+                    <td>{!! Form::checkbox('featured', $product->featured, $product->featured,['disabled'=>'disabled']) !!}</td>
+                    <td>{!! Form::checkbox('recommend', $product->recommend, $product->recommend,['disabled'=>'disabled']) !!}</td>
                     <td>
                         <a href={{route('products.destroy',['id'=>$product->id])}}>Delete</a> |
                         <a href={{route('products.edit',['id'=>$product->id])}}>Edit</a>

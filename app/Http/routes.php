@@ -1,6 +1,6 @@
 <?php
-Route::pattern('id','[0-9+]');
-Route::get('/',['as'=>'home','uses'=>'HomeController@index']);
+Route::pattern('id', '[0-9+]');
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 
 //ADMIN
@@ -26,13 +26,13 @@ Route::group(['prefix' => 'admin'], function () {
 
     //PRODUCTS
 
-    Route::group(['prefix'=>'products'],function(){
+    Route::group(['prefix' => 'products'], function () {
 
-        get('/',['as'=>'products','uses'=>'ProductsController@index']);
+        get('/', ['as' => 'products', 'uses' => 'ProductsController@index']);
 
-        get('create',['as'=>'products.create', 'uses'=>'ProductsController@create']);
+        get('create', ['as' => 'products.create', 'uses' => 'ProductsController@create']);
 
-        post('/',['as'=>'products','uses'=>'ProductsController@store']);
+        post('/', ['as' => 'products', 'uses' => 'ProductsController@store']);
 
         get('{id}/destroy', ['as' => 'products.destroy', 'uses' => 'ProductsController@destroy']);
 

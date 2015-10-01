@@ -17,6 +17,14 @@
             {!! Form::text('price',null,['class'=>'form-control']) !!}
         </div>
         <div class="form-group">
+            {!! Form::label('featured','Featured: ') !!}
+            {!! Form::checkbox('featured',false) !!}
+        </div>
+        <div class="form-group">
+            {!! Form::label('recommend','Recommend: ') !!}
+            {!! Form::checkbox('recommend',false) !!}
+        </div>
+        <div class="form-group">
             {!! Form::submit('Add Products',['class'=>'btn btn-primary form-control']) !!}
         </div>
         {!! Form::close() !!}
