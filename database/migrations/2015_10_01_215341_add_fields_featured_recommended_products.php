@@ -14,7 +14,7 @@ class AddFieldsFeaturedRecommendedProducts extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->boolean('featured')->default(1);
-            $table->boolean('recommend')->default(1);
+            $table->boolean('recommended')->default(1);
         });
     }
 
@@ -27,7 +27,7 @@ class AddFieldsFeaturedRecommendedProducts extends Migration
     {
         Schema::table('products', function (Blueprint $table) {
             $table->removeColumn('featured');
-            $table->removeColumn('recommend');
+            $table->removeColumn('recommended');
         });
     }
 }

@@ -18,7 +18,7 @@
             {!! Form::submit('Add Category',['class'=>'btn btn-primary']) !!}
         </div>
         {!! Form::close() !!}
-        {{ route('categories')}}
+
     </div>
 @endsection
 

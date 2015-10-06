@@ -9,6 +9,10 @@
             {!! Form::text('name',$product->name,['class'=>'form-control']) !!}
         </div>
         <div class="form-group">
+            {!! Form::label('category_id','Category: ') !!}
+            {!! Form::select('category_id',$categories,$product->category->id,['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group">
             {!! Form::label('desctiption','Description: ') !!}
             {!! Form::textarea('description',$product->description,['class'=>'form-control']) !!}
         </div>
@@ -21,8 +25,8 @@
             {!! Form::checkbox('featured',$product->featured,$product->featured) !!}
         </div>
         <div class="form-group">
-            {!! Form::label('recommend','Recommend: ') !!}
-            {!! Form::checkbox('recommend',$product->recommend,$product->recommend) !!}
+            {!! Form::label('recommended','Recommended: ') !!}
+            {!! Form::checkbox('recommended',$product->recommended,$product->recommended) !!}
         </div>
         <div class="form-group">
             {!! Form::submit('Save Product',['class'=>'btn btn-primary']) !!}

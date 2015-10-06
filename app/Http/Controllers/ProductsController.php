@@ -2,41 +2,48 @@
 
 namespace CodeCommerce\Http\Controllers;
 
+use CodeCommerce\Category;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Product;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
 {
-    private $productModel;
-    public function __construct(Product $productModel){
-        $this->productModel = $productModel;
+    private $products;
+    public function __construct(Product $products){
+        $this->products = $products;
     }
     public function index(){
-        $products = $this->productModel->all();
+        $products = $this->products->paginate(5);
         return view('products.index',compact('products'));
     }
-    public function create(){
-        return view('products.create');
+    public function create(Category $category){
+        $categories = $category->lists('name','id');
+        return view('products.create',compact('categories'));
     }
     public function store(Request $request){
         $input = $request->all();
-        $products = $this->productModel->fill($input);
+        $products = $this->products->fill($input);
         $products->save();
         return redirect(route('products'));
 
     }
-    public function edit($id){
-        $product = $this->productModel->find($id);
-        return view('products.edit',compact('product'));
+    public function edit($id,Category $category){
+        $product = $this->products->find($id);
+        $categories = $category->lists('name','id');
+        return view('products.edit',compact('product','categories'));
 
     }
     public function update(Requests\ProductRequest $request, $id){
-        $this->productModel->find($id)->update($request->all());
+        $input = $request->all();
+        isset($input['featured']) ? $input['featured'] = 1 : $input['featured'] = 0;
+        isset($input['recommended'])? $input['recommended'] = 1: $input['recommended'] = 0;
+        $this->products->find($id)->update($input);
         return redirect(route('products'));
+
     }
     public function destroy($id){
-        $this->productModel->find($id)->delete();
+        $this->products->find($id)->delete();
         return redirect(route('products'));
     }
 }

@@ -5,6 +5,10 @@
         <h1>Products Create</h1>
         {!! Form::open(['url'=>route('products')]) !!}
         <div class="form-group">
+            {!! Form::label('id_category','Category: ') !!}
+            {!! Form::select('id_category',$categories,null,['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group">
             {!! Form::label('name','Name: ') !!}
             {!! Form::text('name',null,['class'=>'form-control']) !!}
         </div>
@@ -21,8 +25,8 @@
             {!! Form::checkbox('featured',false) !!}
         </div>
         <div class="form-group">
-            {!! Form::label('recommend','Recommend: ') !!}
-            {!! Form::checkbox('recommend',false) !!}
+            {!! Form::label('recommended','Recommended: ') !!}
+            {!! Form::checkbox('recommended',false) !!}
         </div>
         <div class="form-group">
             {!! Form::submit('Add Products',['class'=>'btn btn-primary form-control']) !!}

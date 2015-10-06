@@ -1,5 +1,4 @@
 <?php
-Route::pattern('id', '[0-9+]');
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 
@@ -7,9 +6,13 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 
 Route::group(['prefix' => 'admin'], function () {
 
+    Route::pattern('id', '^[0-9]+$');
+
     //CATEGORIES
 
     Route::group(['prefix' => 'categories'], function () {
+
+
 
         get('/', ['as' => 'categories', 'uses' => 'CategoriesController@index']);
 
