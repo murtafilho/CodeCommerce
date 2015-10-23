@@ -1,18 +1,17 @@
 <?php
-Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
+Route::get('/', ['as' => 'home', 'uses' => 'StoreController@index']);
 
-
+Route::get('/s3put',['as'=>'testes3put','uses'=> 'AwsController@putObj']);
 //ADMIN
+Route::get('/s3get',['as'=>'testes3get','uses'=> 'AwsController@getObj']);
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin','where'=>['id'=>'[0-9]+']], function () {
 
     Route::pattern('id', '^[0-9]+$');
 
     //CATEGORIES
 
     Route::group(['prefix' => 'categories'], function () {
-
-
 
         get('/', ['as' => 'categories', 'uses' => 'CategoriesController@index']);
 
@@ -42,6 +41,19 @@ Route::group(['prefix' => 'admin'], function () {
         get('{id}/edit', ['as' => 'products.edit', 'uses' => 'ProductsController@edit']);
 
         put('{id}/update', ['as' => 'products.update', 'uses' => 'ProductsController@update']);
+
+        Route::group(['prefix'=>'images'],function(){
+
+            get('{id}/product',['as'=>'products.images','uses' => 'ProductsController@images']);
+
+            get('create/{id}/product',['as'=>'products.images.create','uses' => 'ProductsController@createImage']);
+
+            post('store/{id}/product',['as'=>'products.images.store','uses' => 'ProductsController@storeImage']);
+
+            get('destroy/{id}/image',['as'=>'products.images.destroy','uses' => 'ProductsController@destroyImage']);
+
+            get('imageerror/{key}/image',['as'=>'products.images.error','uses' => 'ProductsController@imageError']);
+        });
     });
 
 });

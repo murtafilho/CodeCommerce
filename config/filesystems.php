@@ -47,12 +47,17 @@ return [
             'driver' => 'local',
             'root'   => storage_path('app'),
         ],
+        'public_local' =>[
+            'driver'=>'local',
+            'root'  =>public_path().'/uploads'
+
+        ],
 
         'ftp' => [
             'driver'   => 'ftp',
-            'host'     => 'ftp.example.com',
-            'username' => 'your-username',
-            'password' => 'your-password',
+            'host'     => 'dmanager.com.br',
+            'username' => 'dmana746',
+            'password' => 'wMHmA7c8',
 
             // Optional FTP Settings...
             // 'port'     => 21,
@@ -64,10 +69,10 @@ return [
 
         's3' => [
             'driver' => 's3',
-            'key'    => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+            'key'    => env('AWS_KEY'),
+            'secret' => env('AWS_SECRET_KEY'),
+            'region' => 'sa-east-1',
+            'bucket' => env('S3_BUCKET')
         ],
 
         'rackspace' => [

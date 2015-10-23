@@ -18,4 +18,16 @@ class Product extends Model
     public function category(){
         return $this->belongsTo('CodeCommerce\Category');
     }
+
+    public function images(){
+        return $this->hasMany('CodeCommerce\ProductImage');
+    }
+
+    public function tags(){
+        return $this->belongsToMany('CodCommerce\Tag');
+    }
+
+    public function scopeFeatured($query){
+        return $query->where('featured','=',1);
+    }
 }

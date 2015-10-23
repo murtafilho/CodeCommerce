@@ -14,7 +14,7 @@
                 <th>Price</th>
                 <th>Featured</th>
                 <th>Recommended</th>
-                <th>Action</th>
+                <th></th>
             </tr>
             @foreach($products as $product)
                 <tr>
@@ -26,8 +26,16 @@
                     <td>{!! Form::checkbox('featured', $product->featured, $product->featured,['disabled'=>'disabled']) !!}</td>
                     <td>{!! Form::checkbox('recommended', $product->recommended, $product->recommended,['disabled'=>'disabled']) !!}</td>
                     <td>
-                        <a href={{route('products.destroy',['id'=>$product->id])}}>Delete</a> |
-                        <a href={{route('products.edit',['id'=>$product->id])}}>Edit</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href={{route('products.images',['id'=>$product->id])}}>Images</a></li>
+                                <li><a href={{route('products.edit',['id'=>$product->id])}}>Edit</a></li>
+                                <li><a href={{route('products.destroy',['id'=>$product->id])}}>Delete</a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach

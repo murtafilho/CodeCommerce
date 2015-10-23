@@ -18,8 +18,15 @@
                     <td>{{$category->name}}</td>
                     <td>{{$category->description}}</td>
                     <td>
-                        <a href={{route('categories.destroy',['id'=>$category->id])}}>Delete</a> |
-                        <a href={{route('categories.edit',['id'=>$category->id])}}>Edit</a>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Action <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href={{route('categories.edit',['id'=>$category->id])}}>Edit</a></li>
+                                <li><a href={{route('categories.destroy',['id'=>$category->id])}}>Delete</a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
             @endforeach
