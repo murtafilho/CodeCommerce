@@ -55,9 +55,9 @@ return [
 
         'ftp' => [
             'driver'   => 'ftp',
-            'host'     => 'dmanager.com.br',
-            'username' => 'dmana746',
-            'password' => 'wMHmA7c8',
+            'host'     => '',
+            'username' => '',
+            'password' => ''',
 
             // Optional FTP Settings...
             // 'port'     => 21,
