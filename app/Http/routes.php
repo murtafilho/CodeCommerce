@@ -1,11 +1,13 @@
 <?php
+
+//HOME
+
 Route::get('/', ['as' => 'home', 'uses' => 'StoreController@index']);
 
-Route::get('/s3put',['as'=>'testes3put','uses'=> 'AwsController@putObj']);
 //ADMIN
-Route::get('/s3get',['as'=>'testes3get','uses'=> 'AwsController@getObj']);
 
 Route::group(['prefix' => 'admin','where'=>['id'=>'[0-9]+']], function () {
+
 
     Route::pattern('id', '^[0-9]+$');
 
@@ -52,7 +54,6 @@ Route::group(['prefix' => 'admin','where'=>['id'=>'[0-9]+']], function () {
 
             get('destroy/{id}/image',['as'=>'products.images.destroy','uses' => 'ProductsController@destroyImage']);
 
-            get('imageerror/{key}/image',['as'=>'products.images.error','uses' => 'ProductsController@imageError']);
         });
     });
 

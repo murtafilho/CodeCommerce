@@ -20,6 +20,7 @@ $factory->define(CodeCommerce\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+
 $factory->define(CodeCommerce\Category::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,

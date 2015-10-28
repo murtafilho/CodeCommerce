@@ -10,9 +10,8 @@
         "bestmomo/scafold": "dev-master",
         "illuminate/html": "^5.0",
         "fzaninotto/faker": "^1.5",
-        "aws/aws-sdk-php": "dev-master",
-        "league/flysystem-aws-s3-v2": "~1.0"
-
+        "league/flysystem-aws-s3-v3": "~1.0",
+        "aws/aws-sdk-php-laravel": "~3.0"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

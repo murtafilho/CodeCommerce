@@ -55,9 +55,9 @@ return [
 
         'ftp' => [
             'driver'   => 'ftp',
-            'host'     => 'dmanager.com.br',
-            'username' => 'dmana746',
-            'password' => 'wMHmA7c8',
+            'host'     => '',
+            'username' => '',
+            'password' => '',
 
             // Optional FTP Settings...
             // 'port'     => 21,
@@ -68,11 +68,11 @@ return [
         ],
 
         's3' => [
-            'driver' => 's3',
-            'key'    => env('AWS_KEY'),
-            'secret' => env('AWS_SECRET_KEY'),
-            'region' => 'sa-east-1',
-            'bucket' => env('S3_BUCKET')
+            'driver' => '',
+            'key'    => '',
+            'secret' => '',
+            'region' => '',
+            'bucket' =>''
         ],
 
         'rackspace' => [

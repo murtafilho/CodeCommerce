@@ -10,7 +10,7 @@ use CodeCommerce\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
-use League\Flysystem\AwsS3v2;
+use CodeCommerce\MyS3;
 
 
 class ProductsController extends Controller
@@ -69,10 +69,10 @@ class ProductsController extends Controller
         return redirect(route('products'));
     }
 
-    public function images($id)
+    public function images($id, MyS3 $myS3)
     {
         $product = $this->products->find($id);
-        //$baseurl = 'https://s3.amazonaws.com/code-commerce';
+        $baseurl = 'https://s3.amazonaws.com/' . $myS3->bucket;
         return view('products.images', compact('product', 'baseurl'));
 
     }
@@ -84,17 +84,23 @@ class ProductsController extends Controller
     }
 
 
-    public function destroyImage(ProductImage $productImage, $id)
+    public function destroyImage(ProductImage $productImage, $id, MyS3 $myS3)
     {
+        $client = $myS3->client;
+        $bucket = $myS3->bucket;
         $image = $productImage->find($id);
-        $strFile = $image->id . '.' . $image->extension;
-        $disk = Storage::disk('public_local');
-        if(file_exists(public_path().'downloads/'.$strFile)) {
-            $disk->delete($strFile);//apaga o arquivo
-        }
-        $image->delete();//apaga o registro no banco
-        return redirect(route('products.images', ['id' => $image->product_id]));
-
+        $key = $image->id . '.' . $image->extension;
+        $product = $image->product;
+        $image->delete();
+       if($client->doesObjectExist($bucket,$key)) {
+           $client->deleteObject([
+               'Bucket' => $bucket,
+               'Key' => $key
+           ]);
+           return redirect(route('products.images', ['id' => $product->id]));
+       }else{
+           return view('products.image_error')->with('key',$key);
+       }
     }
 
     public function tags()
@@ -103,14 +109,24 @@ class ProductsController extends Controller
     }
 
 
-    public function storeImage(Requests\ProductImageRequest $request, $id, ProductImage $productImage)
+    public function storeImage(MyS3 $myS3, Requests\ProductImageRequest $request, $id, ProductImage $productImage)
     {
         $file = $request->file('image');
         $extension = $file->getClientOriginalExtension();
         $image = $productImage::create(['product_id' => $id, 'extension' => $extension]);
-        $contents = File::get($file);
-        $disk = Storage::disk('public_local');
-        $disk->put($image->id . '.' . $extension, $contents);
-        return redirect(route('products.images', ['id' => $id]));
+        $path = $file->getPath() . '\\' . $file->getBasename();
+        $client = $myS3->client;
+        $client->putObject([
+            'Bucket' => $myS3->bucket,
+            'Key' => $image->id . '.' . $extension,
+            'SourceFile' => $path,
+            'Region' => 'sa-east-1',
+            'ACL' => 'public-read'
+        ]);
+
+        return redirect()->route('products.images', ['id' => $id]);
+
     }
+
+
 }
