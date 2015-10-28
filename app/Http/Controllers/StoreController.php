@@ -11,10 +11,10 @@ use CodeCommerce\MyS3;
 
 class StoreController extends Controller
 {
-    public function index(Category $category,Product $product, MyS3 $myS3){
+    public function index(Category $category,Product $product){
         $categories = $category->all();
         $pFeatureds = Product::featured()->get();
-        $baseurl = 'https://s3.amazonaws.com/' . $myS3->bucket;
-        return view('store.index',compact('categories','pFeatureds','baseurl'));
+        $pRecommended = Product::recommended()->get();
+        return view('store.index',compact('categories','pFeatureds','pRecommended'));
     }
 }

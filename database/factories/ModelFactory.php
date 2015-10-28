@@ -32,9 +32,9 @@ $factory->define(CodeCommerce\Product::class, function (Faker\Generator $faker) 
     return [
         'name' => $faker->name,
         'description' => $faker->sentence,
-        'price' => $faker->numberBetween(50,1000),
-        'featured' =>$faker->boolean(50),
-        'recommended' =>$faker->boolean(50),
-        'category_id' =>$faker->numberBetween(1,15)
+        'price' => $faker->numberBetween(10,50),
+        'featured' =>$faker->boolean(20),
+        'recommended' =>$faker->boolean(20),
+        'category_id' =>$faker->numberBetween(1,10)
     ];
 });

@@ -30,4 +30,7 @@ class Product extends Model
     public function scopeFeatured($query){
         return $query->where('featured','=',1);
     }
+    public function scopeRecommended($query){
+        return $query->where('recommended','=',1);
+    }
 }
