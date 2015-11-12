@@ -12,12 +12,14 @@ class Tag extends Model
     public function listTagsIds($tagsNames){
         $ids = array();
         foreach($tagsNames as $tagName){
-            $tagName = trim(ucfirst(strtolower($tagName)));
-            if($id_tag = $this->where('name',$tagName)->value('id')){
-                $ids[] = (integer) $id_tag;
-            }else{
-                $new_tag = $this::create(['name'=>$tagName]);
-                $ids[] = $new_tag->id;
+            $tagName = trim($tagName);
+            if(!strlen($tagName)==0) {
+                if ($id_tag = $this->where('name', $tagName)->value('id')) {
+                    $ids[] = (integer)$id_tag;
+                } else {
+                    $new_tag = $this::create(['name' => ucfirst(strtolower($tagName))]);
+                    $ids[] = $new_tag->id;
+                }
             }
         }
         return $ids;
