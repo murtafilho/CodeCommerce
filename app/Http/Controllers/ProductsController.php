@@ -10,18 +10,15 @@ use CodeCommerce\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
-use League\Flysystem\AwsS3v2;
-
 
 class ProductsController extends Controller
 {
-    private $products;
-    private $tipo_servidor;
+    protected $products;
+    protected $relatedTagsIds;
 
     public function __construct(Product $products)
     {
         $this->products = $products;
-        $this->tipo_servidor = 'public_local';
     }
 
     public function index()
@@ -36,13 +33,15 @@ class ProductsController extends Controller
         return view('products.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request,Tag $tagModel)
     {
         $input = $request->all();
-        $products = $this->products->fill($input);
-        $products->save();
+        $product = $this->products->fill($input);
+        $product->save();
+        $tags = explode(',',$request['tags']);
+        $ids = $tagModel->listTagsIds($tags);
+        $product->tags()->attach($ids);
         return redirect(route('products'));
-
     }
 
     public function edit($id, Category $category)
@@ -53,14 +52,16 @@ class ProductsController extends Controller
 
     }
 
-    public function update(Requests\ProductRequest $request, $id)
+    public function update(Requests\ProductRequest $request, $id,Tag $tagModel)
     {
         $input = $request->all();
         isset($input['featured']) ? $input['featured'] = 1 : $input['featured'] = 0;
         isset($input['recommended']) ? $input['recommended'] = 1 : $input['recommended'] = 0;
         $this->products->find($id)->update($input);
+        $tags = explode(',',$input['tags']);
+        $ids = $tagModel->listTagsIds($tags);
+        $this->products->find($id)->tags()->sync($ids);
         return redirect(route('products'));
-
     }
 
     public function destroy($id)
@@ -82,6 +83,7 @@ class ProductsController extends Controller
         $product = $this->products->find($id);
         return view('products.create_image', compact('product'));
     }
+
 
 
     public function destroyImage(ProductImage $productImage, $id)

@@ -11,6 +11,28 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir(function(mix) {
-    mix.sass('app.scss');
+elixir(function (mix) {
+
+    mix.styles([
+        'bootstrap.min.css',
+        'font-awesome.min.css',
+        'prettyPhoto.css',
+        'animate.css',
+        'main.css',
+        'responsive.css'
+    ], 'public/css/all.css');
+
+    mix.scripts([
+        'jquery.min.js',
+        'bootstrap.min.js',
+        'jquery.scrollUp.min.js',
+        'price-range.js',
+        'jquery.prettyPhoto.js',
+        'main.js'
+    ], 'public/js/all.js');
+
+    mix.version(['css/all.css','js/all.js']);
+
+    mix.copy('ressources/assets/fonts','public/build/fonts');
+
 });

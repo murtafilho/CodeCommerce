@@ -24,7 +24,7 @@ class Product extends Model
     }
 
     public function tags(){
-        return $this->belongsToMany('CodCommerce\Tag');
+        return $this->belongsToMany('CodeCommerce\Tag');
     }
 
     public function scopeFeatured($query){
@@ -33,4 +33,10 @@ class Product extends Model
     public function scopeRecommended($query){
         return $query->where('recommended','=',1);
     }
+    public function getTagListAttribute(){
+        $tags = $this->tags()->lists('name')->toArray();
+        return implode(', ',$tags);
+
+    }
+
 }

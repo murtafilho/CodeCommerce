@@ -29,8 +29,13 @@
             {!! Form::checkbox('recommended',$product->recommended,$product->recommended) !!}
         </div>
         <div class="form-group">
+            {!! Form::label('tags','Tags (entre vírgulas no singular): ') !!}
+            {!! Form::textarea('tags',$product->tag_list,['class'=>'form-control']) !!}
+        </div>
+        <div class="form-group">
             {!! Form::submit('Save Product',['class'=>'btn btn-primary']) !!}
         </div>
+
         {!! Form::close() !!}
     </div>
 @endsection
