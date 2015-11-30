@@ -1,12 +1,24 @@
 @extends('store.store')
 @section('categories')
-    @include('store.left_menu_categories')
+    <div class="col-sm-3">
+        <div class="left-sidebar">
+            <h2>Categorias</h2>
+            <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+                @foreach($categories as $category)
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title"><a href="{{route('category.products',$category->id)}}" >{{$category->name}}</a></h4>
+                        </div>
+                    </div>
+                @endforeach
+            </div><!--/category-products-->
+        </div>
+    </div>
 @stop
 @section('content')
     <div class="col-sm-9 padding-right">
         <div class="features_items"><!--features_items-->
             <h2 class="title text-center">Em destaque</h2>
-
             @foreach($pFeatureds as $featured)
                 <div class="col-sm-4">
                     <div class="product-image-wrapper">

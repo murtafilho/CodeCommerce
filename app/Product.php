@@ -15,10 +15,6 @@ class Product extends Model
         'category_id'
     ];
 
-    public function category(){
-        return $this->belongsTo('CodeCommerce\Category');
-    }
-
     public function images(){
         return $this->hasMany('CodeCommerce\ProductImage');
     }
@@ -30,6 +26,7 @@ class Product extends Model
     public function scopeFeatured($query){
         return $query->where('featured','=',1);
     }
+
     public function scopeRecommended($query){
         return $query->where('recommended','=',1);
     }
@@ -37,6 +34,13 @@ class Product extends Model
         $tags = $this->tags()->lists('name')->toArray();
         return implode(', ',$tags);
 
+    }
+    public function category(){
+        return $this->hasOne('CodeCommerce\Category');
+    }
+
+    public function scopeCategoryProducts($query,$category_id){
+        return $query->where('category_id','=',$category_id);
     }
 
 }

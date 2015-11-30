@@ -3,6 +3,7 @@
 //HOME
 
 Route::get('/', ['as' => 'home', 'uses' => 'StoreController@index']);
+Route::get('{id}/category',['as' => 'category.products', 'uses' => 'StoreController@CategoryProducts']);
 
 //ADMIN
 
