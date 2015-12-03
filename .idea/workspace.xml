@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9b3eadc-19a9-40f8-ac07-02e6f0c953f7" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/resources/views/store/partial/categories.blade.php" />
       <change type="DELETED" beforePath="C:\Users\murtafilho\blog\resources\views\app.blade.php" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\murtafilho\blog\resources\views\home.blade.php" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\murtafilho\blog\resources\views\index.blade.php" afterPath="" />
